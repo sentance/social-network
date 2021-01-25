@@ -1,0 +1,12 @@
+
+.content {
+    grid-area: content;
+    padding-left: 50px;
+    background-color: rgb(206 217 201 / 68%);
+   }
+.contentimg {
+     padding: 20px;
+     margin: 0 auto;
+     height: 100px;
+     width: 800px;
+}

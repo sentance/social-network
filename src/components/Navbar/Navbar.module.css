@@ -1,0 +1,36 @@
+.nav {
+    grid-area: nav;
+    height: 80vh;
+    background-color: rgb(111, 112, 110);
+    color: #fff;
+    padding: 20px;
+  }
+.nav a {
+  color: #fff;
+  text-decoration: none;
+}
+.nav a.active {
+  color: gold;
+}
+
+.friendsList{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  
+}
+.friendsList .friend {
+  padding: 5px;
+
+  
+}
+.friend>img{
+  width: 40px;
+}
+.friendlink img{
+  width: 40px;
+}
+.friendActive {
+  border: 1px solid gold;
+  border-radius: 2px;
+}
