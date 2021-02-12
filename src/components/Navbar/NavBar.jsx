@@ -25,6 +25,9 @@ const Navbar = (props) => {
                 <NavLink exact  to='/dialogs' activeClassName={classes.active}>messages</NavLink>
                 </div>
             <div className='item'>
+                <NavLink exact  to='/users' activeClassName={classes.active}>users</NavLink>
+                </div>
+            <div className='item'>
                 <NavLink  to='/news'>news
                 </NavLink>
                 </div>
