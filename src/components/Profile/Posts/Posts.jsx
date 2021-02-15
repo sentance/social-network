@@ -3,6 +3,7 @@ import classes from './Posts.module.css';
 import OnePost from './OnePost/OnePost';
 
 const Post = (props)=>{
+
     let newPostElement = React.createRef();
     let onAddPost = () =>{
         props.addPost();

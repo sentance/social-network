@@ -1,5 +1,8 @@
 const  UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
+const SET_USER_PROFILE ='SET-USER-PROFILE';
+const TOGGLE_IS_FATCHING = 'TOGGLE_IS_FATCHING';
+
 
 let initialState = {
     postData: [
@@ -18,6 +21,8 @@ let initialState = {
         {id: 7,friendpic: 'https://picsum.photos/100/100/?random=10'},
         {id: 9,friendpic: 'https://picsum.photos/100/100/?random=60'},
     ],
+    isFetching: false,
+    userProfile: null
 }
 
 const profileReducer = (state = initialState, action)=>{
@@ -29,17 +34,25 @@ const profileReducer = (state = initialState, action)=>{
                 likeCount: 0,
                 img: 'https://picsum.photos/100/100/?random=67'
             };
-            let stateCopy = {...state};
-            stateCopy.postData = [...state.postData]
-            stateCopy.postData.push(newPost);
-            stateCopy.newPostText = '';
-            return stateCopy;
-        case UPDATE_NEW_POST_TEXT:{
-            let stateCopy = {...state}
-            stateCopy.newPostText = action.newText;
-            return stateCopy;
-        }
-            default:
+            return {
+                ...state,
+                postData: [...state.postData, newPost],
+                newPostText: ''
+
+            }
+            
+        case UPDATE_NEW_POST_TEXT:
+            return { 
+                ...state,
+                newPostText: action.newText
+            }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                userProfile: action.profile
+            } 
+
+        default:
                 return state;
     }
 }
@@ -52,5 +65,11 @@ export const addPostActionCreator =()=> ({
    type: UPDATE_NEW_POST_TEXT, 
    newText: text
  })
+ export const setUserProfile = (profile) => ( {
+   type: SET_USER_PROFILE, 
+   profile
+ })
+ export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FATCHING, isFetching})
+
 
 export default profileReducer;
