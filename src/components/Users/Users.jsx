@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classes from './Users.module.css';
 import avadafault from '../../pictures/defaultava.jpg';
 import { NavLink } from 'react-router-dom';
@@ -25,7 +25,7 @@ let Users = (props)=> {
                         return(<div className={classes.user +' ' + classes.remote} >
                         <div key={user.id} className={classes.avatar}>
                             <div className={classes.pic}>
-                           <NavLink to="/profile/2/">   <img alt='Tiki-taki' src={user.photos.small != null ? user.photos.small : avadafault}/></NavLink>  
+                           <NavLink to={'/profile/' + user.id} >   <img alt='Tiki-taki' src={user.photos.small != null ? user.photos.small : avadafault}/></NavLink>  
                             </div>
                         
                         { user.follow ? <button onClick={()=>{props.unfollow(user.id)}} className={classes.button}> Follow</button> : <button onClick={()=>{props.follow(user.id)}} className={classes.button}> Unfollow</button>} 

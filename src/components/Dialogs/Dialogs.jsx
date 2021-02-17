@@ -3,7 +3,7 @@ import classes from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 
 const Dialog = (props) => {
-
+    
     let state = props.dialogsPage;
    
     let dialogsElements = state.dialogs.map( dialog=>{
