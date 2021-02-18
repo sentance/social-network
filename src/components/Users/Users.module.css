@@ -51,6 +51,9 @@
     background-color: #1bd523;
     color: #fff;
 }
+.button:disabled {
+    background-color: gray;
+}
 
 .messages .message{
     color: #fff;
