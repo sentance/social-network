@@ -1,4 +1,3 @@
-import {setUserProfile} from '../redux/profile-reducer';
 import userAPI from '../api/api';;
 
 

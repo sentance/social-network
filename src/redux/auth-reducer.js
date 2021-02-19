@@ -8,7 +8,7 @@ let initialState = {
     email: null,
     login: null,
     isFetching: false,
-    isAuth: true
+    isAuth: false
 }
 
 
@@ -34,16 +34,21 @@ export const getAuthUserData = () => {
     return (dispatch) => {
         authAPI.me()
         .then(response=>{
-            let {id, login, email} = response.data.data
-            dispatch(setAuthUserData(id, email, login))
+            let isAuth = response.data.resultCode;
+            let {id, login, email} = response.data.data;
+            
+            if (isAuth === 0){
+                dispatch(setAuthUserData(id, email, login))
+            }
+            
         })
     }
 }
 
-export const setAuthUserData = (id, email, login, isAuth)=>(
+export const setAuthUserData = (id, email, login)=>(
     {
     type: SET_USER_DATA,
-    data: {id, email, login, isAuth}
+    data: {id, email, login}
     })
 
 

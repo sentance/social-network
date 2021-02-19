@@ -1,12 +1,17 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
+import { Redirect } from 'react-router-dom';
 
 const Dialog = (props) => {
     
     let state = props.dialogsPage;
    
     let dialogsElements = state.dialogs.map( dialog=>{
+        if(!props.isAuth) {
+            return <Redirect to='/login'/>
+            }
+         
         return(<div className={classes.dialog}>
                 
                 <DialogItem id={dialog.id} friendpic={dialog.friendpic} name={dialog.name} />
