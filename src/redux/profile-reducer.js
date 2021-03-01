@@ -1,9 +1,10 @@
-import userAPI from '../api/api';;
+import userAPI, {profileAPI} from '../api/api';;
 
 const  UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE ='SET-USER-PROFILE';
 const TOGGLE_IS_FATCHING = 'TOGGLE_IS_FATCHING';
+const SET_STATUS = 'SET_STATUS';
 
 
 let initialState = {
@@ -24,7 +25,8 @@ let initialState = {
         {id: 9,friendpic: 'https://picsum.photos/100/100/?random=60'},
     ],
     isFetching: false,
-    userProfile: null
+    userProfile: null,
+    status: ''
 }
 
 const profileReducer = (state = initialState, action)=>{
@@ -53,7 +55,16 @@ const profileReducer = (state = initialState, action)=>{
                 ...state,
                 userProfile: action.profile
             } 
-
+        // case GET_STATUS:
+        //     return {
+        //         ...state,
+        //         userProfile: action.status
+        //     }
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status
+            }
         default:
                 return state;
     }
@@ -68,6 +79,28 @@ export const getUserProfile = (userId) => {
         })
     }
 }
+export const getStatus = (userId) => {
+
+    return (dispatch) => {
+        profileAPI.getStatus(userId)
+        .then(response=>{
+            dispatch(setStatus(response.data))
+        })
+    }
+}
+export const updateStatus = (status) => {
+    return (dispatch) => {
+        profileAPI.setStatus(status)
+        .then(response=>{
+            
+            if(response.data.resultCode === 0){
+                dispatch(setStatus(status))
+            }
+            
+        })
+    }
+}
+export const setStatus = (status) => ({type: SET_STATUS, status })
 
 export const addPostActionCreator =()=> ({
     type: ADD_POST
@@ -81,6 +114,7 @@ export const addPostActionCreator =()=> ({
    type: SET_USER_PROFILE, 
    profile
  })
+
 
  export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FATCHING, isFetching})
 

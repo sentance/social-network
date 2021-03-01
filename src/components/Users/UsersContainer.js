@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import { follow,  unfollow, setCurrentPage,   toggleFollowingProgress, getUsers } from '../../redux/users-reducer';
 import Users from './Users';
 import Loader from '../Loader/Loader';
-import { Redirect } from 'react-router-dom';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 class UsersContainer extends Component{
 
     componentDidMount(){
@@ -11,13 +12,12 @@ class UsersContainer extends Component{
     }
 
     onpageChanged =(pageNumber)=>{
-
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        
+        this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.setCurrentPage(pageNumber)
     }
     render(){
-        if(!this.props.isAuth) {
-        return <Redirect to='/login'/>
-        }
+       
         return <>
         
                 {this.props.isFetching ? <Loader/> : 
@@ -41,6 +41,7 @@ class UsersContainer extends Component{
     
 }
 
+
 let mapStateToProps = (state) =>{
     
     return {
@@ -55,13 +56,15 @@ let mapStateToProps = (state) =>{
     }
 }
 
-
-
-export default connect(mapStateToProps, {
+export default compose(connect(mapStateToProps, {
     follow,
     unfollow,
     setCurrentPage,
     toggleFollowingProgress,
     getUsers
-})(UsersContainer);
+}), withAuthRedirect)(
+    UsersContainer
+)
+
+
 
