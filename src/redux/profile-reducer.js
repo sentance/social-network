@@ -1,4 +1,9 @@
 import userAPI, {profileAPI} from '../api/api';;
+<<<<<<< HEAD
+=======
+
+const  UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+>>>>>>> main
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE ='SET-USER-PROFILE';
 const TOGGLE_IS_FATCHING = 'TOGGLE_IS_FATCHING';
@@ -47,7 +52,15 @@ const profileReducer = (state = initialState, action)=>{
                 ...state,
                 userProfile: action.profile
             } 
+<<<<<<< HEAD
         
+=======
+        // case GET_STATUS:
+        //     return {
+        //         ...state,
+        //         userProfile: action.status
+        //     }
+>>>>>>> main
         case SET_STATUS:
             return {
                 ...state,
@@ -68,6 +81,30 @@ export const getUserProfile = (userId) => {
     }
 }
 export const getStatus = (userId) => {
+<<<<<<< HEAD
+=======
+
+    return (dispatch) => {
+        profileAPI.getStatus(userId)
+        .then(response=>{
+            dispatch(setStatus(response.data))
+        })
+    }
+}
+export const updateStatus = (status) => {
+    return (dispatch) => {
+        profileAPI.setStatus(status)
+        .then(response=>{
+            
+            if(response.data.resultCode === 0){
+                dispatch(setStatus(status))
+            }
+            
+        })
+    }
+}
+export const setStatus = (status) => ({type: SET_STATUS, status })
+>>>>>>> main
 
     return (dispatch) => {
         profileAPI.getStatus(userId)
