@@ -8,7 +8,10 @@ const Header = (props) => {
         <img src='https://www.socialmediaexaminer.com/wp-content/themes/sme-pro/images/logo@2x.png' />
         <div className={classes.loginBlock}>
             {props.isAuth ?
-            props.login
+            <div>
+            <div>{props.login}</div>  
+            <button onClick={props.logout}>Logout</button>
+           </div>
             : <NavLink to={'/login'}>Login</NavLink>
         }
             

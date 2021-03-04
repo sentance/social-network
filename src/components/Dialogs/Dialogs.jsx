@@ -1,15 +1,13 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
-<<<<<<< HEAD
+
 import {reduxForm, Field} from 'redux-form'
 import { Textarea } from '../common/FormControls/FormControls';
 import { maxLengthCreator, minLengthCreator, required } from '../utils/validators/validators';
 
 const maxLengthCreator10 = maxLengthCreator(10);
 const minLengthCreator3 = minLengthCreator(3);
-=======
->>>>>>> main
 
 const Dialog = (props) => {
     

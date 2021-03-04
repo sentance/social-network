@@ -11,3 +11,6 @@
 input::placeholder {
     color: gray;
 }
+.formSummaryError{
+    border: 1px solid rgb(202, 73, 73)
+}

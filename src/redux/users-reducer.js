@@ -82,7 +82,7 @@ const UsersReducer = (state = initialState, action)=>{
 }
 
 
-export const getUsers = (currentPage, pageSize)=> {
+export const requestUsers = (currentPage, pageSize)=> {
  return (dispatch) => {
     dispatch(toggleIsFetching(true))
     userAPI.getUsers(currentPage, pageSize)

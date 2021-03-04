@@ -1,6 +1,7 @@
 import React, { Component }  from 'react';
 import {connect} from 'react-redux';
-import { follow,  unfollow, setCurrentPage,   toggleFollowingProgress, getUsers } from '../../redux/users-reducer';
+import { follow,  unfollow, setCurrentPage,   toggleFollowingProgress, requestUsers } from '../../redux/users-reducer';
+import {getPageSize, gettotalUsersCount, getCurrentPage, getUsers, getIsFetching, getFollowingIsProgress} from '../../redux/users-selectors';
 import Users from './Users';
 import Loader from '../Loader/Loader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
@@ -8,12 +9,12 @@ import { compose } from 'redux';
 class UsersContainer extends Component{
 
     componentDidMount(){
-       this.props.getUsers(this.props.currentPage, this.props.pageSize) 
+       this.props.requestUsers(this.props.currentPage, this.props.pageSize) 
     }
 
     onpageChanged =(pageNumber)=>{
         
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.requestUsers(pageNumber, this.props.pageSize);
         this.props.setCurrentPage(pageNumber)
     }
     render(){
@@ -45,13 +46,12 @@ class UsersContainer extends Component{
 let mapStateToProps = (state) =>{
     
     return {
-        pageSize: state.users.pageSize,
-        totalUsersCount: state.users.totalUsersCount,
-        currentPage: state.users.currentPage,
-        users: state.users.users,
-        isAuth: state.auth.isAuth,
-        isFetching: state.users.isFetching,
-        followingProgress: state.users.followingInProgress,
+        pageSize: getPageSize(state),
+        totalUsersCount: gettotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        users: getUsers(state),
+        isFetching: getIsFetching(state),
+        followingProgress: getFollowingIsProgress(state),
 
     }
 }
@@ -61,7 +61,7 @@ export default compose(connect(mapStateToProps, {
     unfollow,
     setCurrentPage,
     toggleFollowingProgress,
-    getUsers
+    requestUsers
 }), withAuthRedirect)(
     UsersContainer
 )
