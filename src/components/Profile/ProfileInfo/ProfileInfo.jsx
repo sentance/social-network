@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './ProfileInfo.module.css';
 import Loader from '../../Loader/Loader';
-import ProfileStatus from './Status/ProfileStatus';
+import ProfileStatusWithHooks from './Status/ProfileStatusWIthHooks';
 const ProfileInfo = (props) => {
 
     if (!props.userProfile){
@@ -13,7 +13,7 @@ const ProfileInfo = (props) => {
                 <img src={props.userProfile.photos.large} />
             </div>
       <div className={classes.profileDescription}>
-        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+        <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
         </div>
         </div>
     )
