@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './Posts.module.css';
 import OnePost from './OnePost/OnePost';
 import {reduxForm, Field} from 'redux-form'
@@ -8,12 +8,11 @@ import { Textarea } from '../../common/FormControls/FormControls';
 const maxLengthCreator10 = maxLengthCreator(10);
 const minLengthCreator3 = minLengthCreator(3);
 
-const Post = (props)=>{
-
+const Post = React.memo(props =>{
     let onAddPost = (value) =>{
         props.addPost(value.newPostElement);
     }
-
+    
     return (
         
         <div className={classes.myPosts}>
@@ -30,8 +29,9 @@ const Post = (props)=>{
             })}
          </div>
         </div>
+        
     )
-}
+})
 
 const PostForm = (props)=>{
     return (

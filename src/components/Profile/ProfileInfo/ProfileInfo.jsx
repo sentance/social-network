@@ -2,18 +2,20 @@ import React from 'react';
 import classes from './ProfileInfo.module.css';
 import Loader from '../../Loader/Loader';
 import ProfileStatusWithHooks from './Status/ProfileStatusWIthHooks';
-const ProfileInfo = (props) => {
+import avadafault from '../../../defaultava.jpg';
 
-    if (!props.userProfile){
+const ProfileInfo = ({userProfile, status, updateStatus}) => {
+
+    if (!userProfile){
         return <Loader/>
     }
     return (
         <div className={classes.profileinfo}>
             <div>
-                <img src={props.userProfile.photos.large} />
+                <img alt='Avatar' src={userProfile.photos.small != null ? userProfile.photos.small : avadafault}/>
             </div>
       <div className={classes.profileDescription}>
-        <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+        <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
         </div>
         </div>
     )

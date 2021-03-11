@@ -47,4 +47,3 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(withRouter,connect(mapStateToProps, {initializeApp}))(App)
-// export default connect(null, {getAuthUserData})(App);

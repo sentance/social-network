@@ -10,18 +10,6 @@ const ProfileStatusWithHooks = (props)=> {
     let [editMode, setEditmode] = useState(false);
     let [status, updateStatus] = useState(props.status);
 
-    // componentDidMount(){
-        
-    //     let userId = this.props.match.params.userId;
-    //     if (!userId){
-    //         userId = this.props.authorizedUserId;
-    //         if(!userId){
-    //             this.props.history.push('/login')
-    //         }
-    //     }
-    //     this.props.getUserProfile(userId)      
-    //     this.props.getStatus(userId)      
-    // }
 
     return  (
     <Profile {...this.props} 
