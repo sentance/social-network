@@ -1,12 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import classes from './Posts.module.css';
 import OnePost from './OnePost/OnePost';
-import {reduxForm, Field} from 'redux-form'
-import {maxLengthCreator, minLengthCreator, required } from '../../utils/validators/validators';
-import { Textarea } from '../../common/FormControls/FormControls';
+import {Formik, Field} from 'formik'
 
-const maxLengthCreator10 = maxLengthCreator(10);
-const minLengthCreator3 = minLengthCreator(3);
 
 const Post = React.memo(props =>{
     let onAddPost = (value) =>{
@@ -17,13 +13,14 @@ const Post = React.memo(props =>{
         
         <div className={classes.myPosts}>
             <dic className={classes.newPost}>
-                <PostMessage onSubmit={onAddPost}/>
+                <PostForm onSubmit={onAddPost}/>
             </dic>
         <div className={classes.allPosts}>
             {props.posts.map(post=>{
                 return(<OnePost 
                     text={post.text}
                     img={post.img}
+                    key={post}
                     likeCount={post.likeCount}
                 />)
             })}
@@ -34,13 +31,27 @@ const Post = React.memo(props =>{
 })
 
 const PostForm = (props)=>{
+    const {onSubmit} = props;
     return (
-        <form onSubmit={props.handleSubmit}>
-                <Field placeholder={'Message'} name={'newPostElement'} component={Textarea}  validate={[required, maxLengthCreator10, minLengthCreator3 ]} ></Field>
-                <button >Send post</button>
-        </form>
+        <Formik
+        initialValues={{
+            newPostElement: ''
+        }}
+        onSubmit={(values) => {
+            onSubmit(values)
+            
+        }}
+        
+        >{({values, errors, touched, handleSubmit, handleReset})=>(
+            <form onSubmit={handleSubmit}>
+            <Field placeholder={'Message'} name={'newPostElement'} component={'textarea'} ></Field>
+            <button >Send post</button>
+            </form>
+        )}
+       
+        </Formik>
     )
 }
-const PostMessage = reduxForm({form: 'newPostElement'})(PostForm)
+
 
 export default Post;

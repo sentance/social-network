@@ -1,5 +1,5 @@
 import {updateObjectinArray} from '../components/utils/object-helpers';
-import userAPI from '../api/api';;
+import userAPI from '../api/api';
 
 
 const FOLLOW = 'FOLLOW';
@@ -40,12 +40,6 @@ const UsersReducer = (state = initialState, action)=>{
             return {
                 ...state,
                 users: updateObjectinArray(state.users, action.userId, 'id', {followed: true})
-                // users: state.users.map(user=>{
-                //     if(user.id === action.userId){
-                //         return {...user, followed: true}
-                //     }
-                //     return user;
-                // })
             };
             
         case UNFLLOW:
@@ -98,12 +92,12 @@ export const requestUsers = (currentPage, pageSize)=> async (dispatch) => {
 
 
 export const unfollow = (userId) => async (dispatch) => {
-    followUnfollowFlow(dispatch, userId, userAPI.unfolowUser.bind(userAPI), unfollowSuccess) 
+    await followUnfollowFlow(dispatch, userId, userAPI.unfolowUser.bind(userAPI), unfollowSuccess)
 
 }
 
 export const follow = (userId) => async (dispatch) => {
-    followUnfollowFlow(dispatch, userId, userAPI.followUser.bind(userAPI), followSuccess) 
+    await followUnfollowFlow(dispatch, userId, userAPI.followUser.bind(userAPI), followSuccess)
 }
 
 

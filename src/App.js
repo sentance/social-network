@@ -3,9 +3,7 @@ import './App.css';
 import UsersContainer from './components/Users/UsersContainer';
 import Navbar from './components/Navbar/NavBar'
 import {Route} from 'react-router-dom';
-// import DialogsContainer from './components/Dialogs/DialogsContainer';
-
-// import DialogsContainer from './components/Dialogs/DialogsContainer';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/Login'
@@ -16,7 +14,7 @@ import { withRouter } from 'react-router-dom';
 import Loader from './components/Loader/Loader';
 import withLazyLoad from './hoc/LoadLazy';
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+// const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 class App extends React.Component {
       componentDidMount(){
         this.props.initializeApp()
@@ -32,9 +30,10 @@ class App extends React.Component {
       
         <Navbar/>
         <div className='app-wrapper-content'>
-            <Route path='/dialogs' render={withLazyLoad (DialogsContainer)}/>
+            <Route path='/dialogs' render={()=><DialogsContainer/>}/>
             <Route path='/profile/:userId?' render={ ()=> <ProfileContainer /> }/>
             <Route path='/users' render={ ()=> <UsersContainer /> }/>
+            
             <Route path='/login' render={ ()=> <LoginPage /> }/>
         </div>
       </div>

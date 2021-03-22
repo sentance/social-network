@@ -1,13 +1,9 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
+import {Formik, Field} from 'formik'
 
-import {reduxForm, Field} from 'redux-form'
-import { Textarea } from '../common/FormControls/FormControls';
-import { maxLengthCreator, minLengthCreator, required } from '../utils/validators/validators';
 
-const maxLengthCreator10 = maxLengthCreator(10);
-const minLengthCreator3 = minLengthCreator(3);
 
 const Dialog = (props) => {
     
@@ -17,13 +13,13 @@ const Dialog = (props) => {
        
         return(<div className={classes.dialog}>
                 
-                <DialogItem id={dialog.id} friendpic={dialog.friendpic} name={dialog.name} />
+                <DialogItem id={dialog.id+1} key={dialog.id} friendpic={dialog.friendpic} name={dialog.name} />
             </div>)
     })
 
     let messages =  state.messages.map(message =>{
         return (
-        <div className={classes.user +' ' + classes.remote} >
+        <div key={message.id} className={classes.user +' ' + classes.remote} >
             <div className={classes.avatar}>
                 <div className={classes.pic}>
                     <img src="https://picsum.photos/100/100/?random=1"/>
@@ -36,12 +32,6 @@ const Dialog = (props) => {
         </div>
     )
     })
-    // let newMessageBody = state.newMessageBody;
-
-    // let onNewMessageChange = (e)=>{
-    //     let body =  e.target.value;
-    //     props.updateNewMessageBodyCreator(body);
-    // }
     let onSendMessageClick = (value)=>{
         props.sendMessage(value.newMessageBody)
     }
@@ -52,26 +42,39 @@ const Dialog = (props) => {
                  </div>
                 <div className={classes.dialogue}>
                     {messages}
-                    <FormMessage onSubmit={onSendMessageClick} />
+                    <MessageForm onSubmit={onSendMessageClick} />
                
                 </div>
                 </div>
         )
 }
 
-const MessageForm =(props)=>{
+const MessageForm =({onSubmit})=>{
     return (
-    <form onSubmit={props.handleSubmit}>
-            <div>
-            <Field  placeholder={'Message'} name={'newMessageBody'} component={Textarea} validate={[required, maxLengthCreator10, minLengthCreator3]}/>
-            </div>
+        <Formik
+        initialValues={{
+            newPostElement: ''
+        }}
+        onSubmit={(values) => {
+            onSubmit(values)
             
-            <div>
-               <button>Send message</button>
-            </div>
-    </form>
+        }}
+        >
+            {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting})=>(
+                <form onSubmit={handleSubmit}>
+                    <div>
+                    <Field  placeholder={'Message'} name={'newMessageBody'}  component={'textarea'} />
+                    </div>
+                    
+                    <div>
+                    <button>Send message</button>
+                    </div>
+                </form>
+            )}
+        </Formik>
+    
         )
 }
 
-const FormMessage = reduxForm({form: 'messageDialogs'})(MessageForm)
+
 export default Dialog;

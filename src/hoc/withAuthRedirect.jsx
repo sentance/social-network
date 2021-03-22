@@ -23,3 +23,4 @@ export const withAuthRedirect = (Component) => {
     return ConnectedAuthRedirectComponent;
 }
 
+export default withAuthRedirect;

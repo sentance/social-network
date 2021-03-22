@@ -6,7 +6,7 @@ const TOGGLE_IS_FATCHING = 'TOGGLE_IS_FATCHING';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST';
 const LIKE_POST = 'LIKE_POST';
-
+const SAVE_PHOTO = 'SAVE_PHOTO';
 
 let initialState = {
     postData: [
@@ -61,11 +61,13 @@ const profileReducer = (state = initialState, action)=>{
                 status: action.status
             }
         case LIKE_POST:
-            debugger
             return {
                 ...state,
                 postData: [...state.postData, state.postData.likeCount+1]
             }
+        case SAVE_PHOTO:
+            return {...state, userProfile: action.profile}
+
         default:
                 return state;
     }
@@ -80,6 +82,19 @@ export const getStatus = (userId) => async (dispatch) =>  {
     let response = await profileAPI.getStatus(userId)
     dispatch(setStatus(response.data))
 }
+export const updateProfile = (profile) => async (dispatch, getState)=>{
+    const userId = getState().auth.id;
+    let response =  await profileAPI.updateProfileInfo(profile);
+    
+    if(response.data.resultCode === 0){
+        dispatch(getUserProfile(userId));
+    }
+    
+}
+export const savePhoto = (file) => async (dispatch) =>  {
+    let response = await profileAPI.savePhoto(file)
+    dispatch(savePhotoSuccess(response.data.data.photos))
+}
 
 export const updateStatus = (status) => async (dispatch) => {
     let response = await profileAPI.setStatus(status)
@@ -90,6 +105,8 @@ export const updateStatus = (status) => async (dispatch) => {
 
 export const setStatus = (status) => ({type: SET_STATUS, status })
 
+export const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO, photos })
+
 export const addPostActionCreator =(newPostElement)=> ({
     type: ADD_POST,
     newPostElement
@@ -99,6 +116,7 @@ export const addPostActionCreator =(newPostElement)=> ({
    type: SET_USER_PROFILE, 
    profile
  })
+
  export const delePost = (postId) => ( {
    type: DELETE_POST, 
    postId

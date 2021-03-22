@@ -13,7 +13,7 @@ const  OnePost = (props) => {
             <button disabled={disabled} className={classes.like} onClick={()=>{
                 setLikeCount(likeCount +1)
                 likePost();
-                // setDisabled(true)
+                setDisabled(true)
                 }} href='#'>Like <sup>{likeCount}</sup>
         </button>
         </span>
