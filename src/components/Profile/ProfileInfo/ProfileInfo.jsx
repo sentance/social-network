@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import classes from './ProfileInfo.module.css';
 import Loader from '../../Loader/Loader';
 import ProfileStatusWithHooks from './Status/ProfileStatusWIthHooks';
 import avadafault from '../../../defaultava.jpg';
@@ -23,10 +22,12 @@ const ProfileInfo = ({userProfile, status, updateStatus, isOwner, savePhoto, upd
         setEditMode(false)
     }
     return (
-        <div className={classes.profileinfo}>
+        <div >
             <div>
                 <img alt='Avatar' src={userProfile.photos.small !== null ? userProfile.photos.small : avadafault}/>
             </div>
+      
+
             {editMode 
             ? <ProfileFormRedux initialValues={userProfile} userProfile={userProfile} onSubmit={onFormSubmit}/> 
             : <ProfileData 
@@ -37,7 +38,7 @@ const ProfileInfo = ({userProfile, status, updateStatus, isOwner, savePhoto, upd
                 }}
                 />}
  
-      <div className={classes.profileDescription}>
+      <div>
          
           {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>} 
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
@@ -64,7 +65,7 @@ const ProfileData = ({userProfile, isOwner, goToEditMode})=>{
 }
 
 const Contacts = ({contactTitle, contactValue})=>{
-    return <div className={classes.contacts}><b>{contactTitle}:</b> {contactValue}</div>
+    return <div ><b>{contactTitle}:</b> {contactValue}</div>
 }
 
 export default ProfileInfo;

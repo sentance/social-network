@@ -51,8 +51,9 @@ export const login = (email, password, rememberMe, captcha) => async (dispatch) 
         dispatch(setAuthUserData(null, null, null, null, errorMessage))
 
     } else if (isAuth === 10) {
-        let captchaUrl = dispatch(getcaptchaUrl());
+
         let errorMessage = response.messages[0]
+        let captchaUrl = dispatch(getcaptchaUrl());
         dispatch(setAuthUserData(null, null, null, null, errorMessage, captchaUrl))
 
     }
@@ -61,7 +62,7 @@ export const login = (email, password, rememberMe, captcha) => async (dispatch) 
 export const getcaptchaUrl = () => async (dispatch) => {
     let captchaUrl = await authAPI.getCaptcha();
     let url = captchaUrl.data['url'];
-    dispatch(setAuthUserData(null, null, null, null, null, url))
+    dispatch(setAuthUserData(null, null, null, null, "Enter symbols from picture", url))
 }
 export const logout = () => async (dispatch) => {
     let response = await authAPI.logout()

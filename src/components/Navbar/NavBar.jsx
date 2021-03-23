@@ -3,19 +3,7 @@ import { NavLink } from 'react-router-dom';
 import classes from './Navbar.module.css'
 
 const Navbar = (props) => {
-    // let friendsAvatars = props.state.frindavatar.map((ava)=>{
-        
-    //     let path = '/dialogs/' +  ava.id;
-    //     return (
-    //         <div className={classes.friend}>
-    //             <NavLink className={classes.friendlink} to={path}> 
-    //             <img src={ava.friendpic} activeClassName={classes.friendActive} alt='friendfoto'/>
-    //             </NavLink>
-               
-    //         </div>
-        
-    //     )
-    // })
+
     return (
         <nav className={classes.nav}>
             <div className='item'>

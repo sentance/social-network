@@ -5,7 +5,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = (props) => {
     return (
-        <div className={classes.content}>
+        <div >
 
             <ProfileInfo isOwner={props.isOwner}
                          updateProfile={props.updateProfile}
@@ -13,7 +13,7 @@ const Profile = (props) => {
                          userProfile={props.userProfile}
                          status={props.status}
                          updateStatus={props.updateStatus}/>
-            <div className={classes.item}>
+            <div >
                 <PostContainer/>
             </div>
         </div>
