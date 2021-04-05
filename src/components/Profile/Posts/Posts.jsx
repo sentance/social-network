@@ -1,7 +1,9 @@
 import React from 'react';
 import classes from './Posts.module.css';
 import OnePost from './OnePost/OnePost';
-import {Formik, Field} from 'formik'
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+import {SubmitButton, Form, Input,} from 'formik-antd'
 
 
 const Post = React.memo(props =>{
@@ -30,6 +32,13 @@ const Post = React.memo(props =>{
     )
 })
 
+const SignupSchema = Yup.object().shape({
+    newPostElement: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+
+  });
+
 const PostForm = (props)=>{
     const {onSubmit} = props;
     return (
@@ -41,12 +50,18 @@ const PostForm = (props)=>{
             onSubmit(values)
             
         }}
+        validationSchema={SignupSchema}
         
         >{({values, errors, touched, handleSubmit, handleReset})=>(
-            <form onSubmit={handleSubmit}>
-            <Field placeholder={'Message'} name={'newPostElement'} component={'textarea'} ></Field>
-            <button >Send post</button>
-            </form>
+            <Form onSubmit={handleSubmit}>
+                <div>
+                    <Input.TextArea style={{width: 600}} rows={4} placeholder={'Message'} name={'newPostElement'} component={'textarea'} ></Input.TextArea>
+                </div>
+            {errors.newPostElement && touched.newPostElement ? <div className={classes.errors}>{errors.newPostElement}</div> : null}
+                <div>
+                    <SubmitButton type={"primary"}>Send post</SubmitButton>
+                </div>
+            </Form>
         )}
        
         </Formik>

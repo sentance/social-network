@@ -12,3 +12,9 @@
 .newPost {
     margin-bottom: 50px;
 }
+.inputs {
+    color: #666;
+}
+.errors {
+    color: red;
+}
